@@ -4,5 +4,4 @@ CREATE TABLE auto_post
     description  varchar                       not null,
     created      timestamp                     not null,
     auto_user_id int references auto_user (id) not null
-
 );
