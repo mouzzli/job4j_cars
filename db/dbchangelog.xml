@@ -18,4 +18,6 @@
     <include file="scripts/008_ddl_create_table_driver.sql" relativeToChangelogFile="true"/>
     <include file="scripts/009_ddl_create_table_history_owner.sql" relativeToChangelogFile="true"/>
     <include file="scripts/010_ddl_alter_table_auto_posts_add_fk.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/011_ddl_create_post_photo.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/012_ddl_alter_table_car.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
