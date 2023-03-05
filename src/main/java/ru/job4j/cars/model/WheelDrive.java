@@ -8,19 +8,16 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "engine")
+@Table(name = "wheel_drive")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Engine {
+public class WheelDrive {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
+
     private String name;
-    private double power;
-    @Column(name = "cubic_capacity")
-    private double cubicCapacity;
-    private String fuel;
 }

@@ -37,6 +37,18 @@ public class CrudRepository {
         run(command);
     }
 
+    public boolean update(String query, Map<String, Object> args) {
+        Function<Session, Boolean> command = session -> {
+            var sq = session
+                    .createQuery(query);
+            for (Map.Entry<String, Object> arg : args.entrySet()) {
+                sq.setParameter(arg.getKey(), arg.getValue());
+            }
+            return sq.executeUpdate() > 0;
+        };
+        return tx(command);
+    }
+
     public <T> Optional<T> optional(String query, Class<T> cl, Map<String, Object> args) {
         Function<Session, Optional<T>> command = session -> {
             var sq = session
@@ -44,7 +56,7 @@ public class CrudRepository {
             for (Map.Entry<String, Object> arg : args.entrySet()) {
                 sq.setParameter(arg.getKey(), arg.getValue());
             }
-            return Optional.ofNullable(sq.getSingleResult());
+            return sq.uniqueResultOptional();
         };
         return tx(command);
     }

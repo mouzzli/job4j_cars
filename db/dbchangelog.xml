@@ -20,4 +20,13 @@
     <include file="scripts/010_ddl_alter_table_auto_posts_add_fk.sql" relativeToChangelogFile="true"/>
     <include file="scripts/011_ddl_create_post_photo.sql" relativeToChangelogFile="true"/>
     <include file="scripts/012_ddl_alter_table_car.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/013_ddl_alter_table_engine.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/014_ddl_create_table_transmission.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/015_ddl_alter_table_car_add_fk.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/016_ddl_alter_table_auto_post_add_price.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/017_ddl_create_table_wheel_drive.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/020_ddl_alter_table_car_add_fk.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/021_ddl_create_table_type.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/022_ddl_create_table_color.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/023_ddl_alter_table_car_add_fk.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
