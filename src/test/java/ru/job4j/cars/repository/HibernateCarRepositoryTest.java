@@ -22,6 +22,7 @@ class HibernateCarRepositoryTest {
     private static TypeRepository typeRepository;
     private static TransmissionRepository transmissionRepository;
     private static CarRepository carRepository;
+    private static FuelRepository fuelRepository;
     private static SessionFactory sf;
 
     @BeforeAll
@@ -36,6 +37,7 @@ class HibernateCarRepositoryTest {
         typeRepository = new HibernateTypeRepository(crudRepository);
         transmissionRepository = new HibernateTransmissionRepository(crudRepository);
         carRepository = new HibernateCarRepository(crudRepository);
+        fuelRepository = new HibernateFuelRepository(crudRepository);
     }
 
     @AfterEach
@@ -48,6 +50,7 @@ class HibernateCarRepositoryTest {
         session.createQuery("DELETE FROM WheelDrive").executeUpdate();
         session.createQuery("DELETE FROM Engine").executeUpdate();
         session.createQuery("DELETE FROM Color").executeUpdate();
+        session.createQuery("DELETE FROM Fuel").executeUpdate();
         Transaction tr = session.getTransaction();
         tr.commit();
         session.close();
@@ -58,7 +61,9 @@ class HibernateCarRepositoryTest {
     public void whenSaveThenFindById() {
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
@@ -74,7 +79,7 @@ class HibernateCarRepositoryTest {
                 wheelDrive,
                 color,
                 type,
-                "97000");
+                97000);
 
         Car savedCar = carRepository.save(car);
         assertThat(savedCar).isEqualTo(car);
@@ -86,7 +91,9 @@ class HibernateCarRepositoryTest {
     public void whenSaveThenDelete() {
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
@@ -102,7 +109,7 @@ class HibernateCarRepositoryTest {
                 wheelDrive,
                 color,
                 type,
-                "97000");
+                97000);
         carRepository.save(car);
         assertThat(carRepository.delete(car.getId())).isTrue();
         assertThat(carRepository.delete(car.getId())).isFalse();
@@ -113,7 +120,9 @@ class HibernateCarRepositoryTest {
     public void whenSaveThenUpdate() {
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
@@ -129,7 +138,7 @@ class HibernateCarRepositoryTest {
                 wheelDrive,
                 color,
                 type,
-                "97000");
+                97000);
         carRepository.save(car);
         car.setBrand("Toyota");
         assertThat(carRepository.update(car)).isTrue();

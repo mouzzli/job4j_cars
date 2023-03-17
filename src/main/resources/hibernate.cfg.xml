@@ -24,5 +24,6 @@
         <mapping class="ru.job4j.cars.model.WheelDrive"/>
         <mapping class="ru.job4j.cars.model.Color"/>
         <mapping class="ru.job4j.cars.model.Type"/>
+        <mapping class="ru.job4j.cars.model.Fuel"/>
     </session-factory>
 </hibernate-configuration>

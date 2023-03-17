@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Color;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -14,11 +15,12 @@ public class HibernateColorRepository implements ColorRepository {
             + "WHERE id = :id";
     private static final String DELETE_BY_ID = "DELETE FROM Color "
             + "WHERE id = :id";
+    private static final String FIND_ALL = "FROM Color";
     private CrudRepository crudRepository;
 
     @Override
     public Color save(Color color) {
-        crudRepository.tx(session -> session.save(color));
+        crudRepository.run(session -> session.persist(color));
         return color;
     }
 
@@ -42,5 +44,10 @@ public class HibernateColorRepository implements ColorRepository {
     @Override
     public boolean delete(int id) {
         return crudRepository.update(DELETE_BY_ID, Map.of("id", id));
+    }
+
+    @Override
+    public List<Color> findAll() {
+        return crudRepository.query(FIND_ALL, Color.class);
     }
 }

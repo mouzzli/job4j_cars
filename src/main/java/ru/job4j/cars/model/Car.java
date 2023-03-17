@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "car")
@@ -28,7 +26,7 @@ public class Car {
     @Column(name = "manufactured_year")
     private int manufacturedYear;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "engine_id")
     private Engine engine;
 
@@ -48,5 +46,5 @@ public class Car {
     @JoinColumn(name = "type_id")
     private Type type;
 
-    private String mileage;
+    private int mileage;
 }

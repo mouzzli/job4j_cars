@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.WheelDrive;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -14,12 +15,12 @@ public class HibernateWheelDriveRepository implements WheelDriveRepository {
             + "WHERE id = :id";
     private static final String DELETE_BY_ID = "DELETE FROM WheelDrive "
             + "where id = :id";
-
+    private static final String FIND_ALL = "FROM WheelDrive";
     private CrudRepository crudRepository;
 
     @Override
     public WheelDrive save(WheelDrive wheelDrive) {
-        crudRepository.run(session -> session.save(wheelDrive));
+        crudRepository.run(session -> session.persist(wheelDrive));
         return wheelDrive;
     }
 
@@ -43,5 +44,10 @@ public class HibernateWheelDriveRepository implements WheelDriveRepository {
     @Override
     public boolean delete(int id) {
         return crudRepository.update(DELETE_BY_ID, Map.of("id", id));
+    }
+
+    @Override
+    public List<WheelDrive> findAll() {
+        return crudRepository.query(FIND_ALL, WheelDrive.class);
     }
 }

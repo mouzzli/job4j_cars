@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Transmission;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -14,11 +15,12 @@ public class HibernateTransmissionRepository implements TransmissionRepository {
             + "WHERE id = :id";
     private static final String DELETE_BY_ID = "DELETE FROM Transmission "
             + "WHERE id = :id";
+    private static final String FIND_ALL = "FROM Transmission";
     private CrudRepository crudRepository;
 
     @Override
     public Transmission save(Transmission transmission) {
-         crudRepository.tx(session -> session.save(transmission));
+         crudRepository.run(session -> session.persist(transmission));
         return transmission;
     }
 
@@ -42,5 +44,10 @@ public class HibernateTransmissionRepository implements TransmissionRepository {
             }
             return false;
         });
+    }
+
+    @Override
+    public List<Transmission> findAll() {
+        return crudRepository.query(FIND_ALL, Transmission.class);
     }
 }

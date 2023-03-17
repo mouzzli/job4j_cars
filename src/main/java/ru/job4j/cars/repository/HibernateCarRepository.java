@@ -18,7 +18,7 @@ public class HibernateCarRepository implements CarRepository {
 
     @Override
     public Car save(Car car) {
-        crudRepository.tx(session -> session.save(car));
+        crudRepository.run(session -> session.persist(car));
         return car;
     }
 

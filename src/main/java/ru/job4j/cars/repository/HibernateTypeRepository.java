@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.Type;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -14,11 +15,12 @@ public class HibernateTypeRepository implements TypeRepository {
             + "WHERE id = :id";
     private static final String DELETE_BY_ID = "DELETE FROM Type "
             + "WHERE id = :id";
+    private static final String FIND_ALL = "FROM Type";
     private CrudRepository crudRepository;
 
     @Override
     public Type save(Type type) {
-        crudRepository.tx(session ->  session.save(type));
+        crudRepository.run(session ->  session.persist(type));
         return type;
     }
 
@@ -42,5 +44,10 @@ public class HibernateTypeRepository implements TypeRepository {
     @Override
     public boolean delete(int id) {
         return crudRepository.update(DELETE_BY_ID, Map.of("id", id));
+    }
+
+    @Override
+    public List<Type> findAll() {
+        return crudRepository.query(FIND_ALL, Type.class);
     }
 }

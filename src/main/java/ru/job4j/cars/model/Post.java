@@ -34,7 +34,7 @@ public class Post {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany()
     @JoinColumn(name = "post_id")
     private List<PostPhoto> postPhotos = new ArrayList<>();
 }

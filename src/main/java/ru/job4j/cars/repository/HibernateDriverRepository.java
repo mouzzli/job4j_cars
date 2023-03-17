@@ -18,7 +18,7 @@ public class HibernateDriverRepository implements DriverRepository {
 
     @Override
     public Driver save(Driver driver) {
-        crudRepository.tx(session -> session.save(driver));
+        crudRepository.run(session -> session.persist(driver));
         return driver;
     }
 

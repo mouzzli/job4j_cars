@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class HibernateWheelDriveRepositoryTest {
+class HibernateWheelDriveServiceRepositoryTest {
 
     private static WheelDriveRepository wheelDriveRepository;
     private static SessionFactory sf;

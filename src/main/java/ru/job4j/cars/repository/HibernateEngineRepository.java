@@ -18,7 +18,7 @@ public class HibernateEngineRepository implements EngineRepository {
 
     @Override
     public Engine save(Engine engine) {
-        crudRepository.run(session -> session.save(engine));
+        crudRepository.run(session -> session.persist(engine));
         return engine;
     }
 

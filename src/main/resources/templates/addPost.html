@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+<div>
+    <div class="header-blue">
+        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+            <div class="container"><a class="navbar-brand" th:href="@{/}">Проект Cars</a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse"
+                     id="navcol-1">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item" role="presentation"><a class="nav-link active" th:href="@{/createPost}">Подать
+                            Объявление</a></li>
+                    </ul>
+                    <form class="form-inline mr-auto" target="_self">
+                    </form>
+                    <span class="navbar-text">
+                        <a href="#" class="login">Войти</a>
+                    </span>
+                    <a class="btn btn-light action-button" role="button" href="#">Регистрация</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <form th:action="@{/addPost}" method="post">
+                <div class="row gx-xl-5 d-flex justify-content-center">
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="brand" class="form-label text-light">Марка</label>
+                            <input type="text" class="form-control" id="brand" name="brand" required="required">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="model" class="form-label text-light">Модель</label>
+                            <input type="text" class="form-control" id="model" name="model" required="required">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="manufacturedYear" class="form-label text-light">Год Выпуска</label>
+                            <input type="number" class="form-control" id="manufacturedYear" name="manufacturedYear"
+                                   required="required">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="color" class="form-label text-light">Цвет</label>
+                            <select class="form-control" id="color" name="color.id" required>
+                                <option th:each="color : ${colors}" th:value="${color.id}"
+                                        th:text="${color.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="transmission" class="form-label text-light">Коробка Передач</label>
+                            <select class="form-control" id="transmission" name="transmission.id" required>
+                                <option th:each="transmission : ${transmissions}" th:value="${transmission.id}"
+                                        th:text="${transmission.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="wheelDrive" class="form-label text-light">Привод</label>
+                            <select class="form-control" id="wheelDrive" name="wheelDrive.id" required>
+                                <option th:each="wheelDrive : ${wheelDrives}" th:value="${wheelDrive.id}"
+                                        th:text="${wheelDrive.name}"></option>
+                            </select>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="power" class="form-label text-light">Мощность</label>
+                            <input type="number" class="form-control" id="power" name="power" required="required">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="cubicCapacity" class="form-label text-light">Объём</label>
+                            <input type="number" step="any" class="form-control" id="cubicCapacity" name="cubicCapacity"
+                                   required="required">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="mileage" class="form-label text-light">Пробег</label>
+                            <input type="number" class="form-control" id="mileage" name="mileage"
+                                   required="required">
+
+                        </div>
+
+                        <button class="btn btn-light action-button" type="submit">Создать</button>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="description" class="form-label text-light">Текст Объявления</label>
+                            <textarea type="text" class="form-control" rows="12" id="description" name="description"
+                                      placeholder="Текст Объявления" required="required" style="max-height: 297px"></textarea>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="price" class="form-label text-light">цена</label>
+                            <input type="number" step="any" class="form-control" id="price" name="price"
+                                   required="required">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fuel" class="form-label text-light">Вид Топлива</label>
+                            <select class="form-control" id="fuel" name="fuel.id" required>
+                                <option th:each="fuel : ${fuels}" th:value="${fuel.id}"
+                                        th:text="${fuel.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="type" class="form-label text-light">Тип Кузова</label>
+                            <select class="form-control" id="type" name="type.id" required>
+                                <option th:each="type : ${types}" th:value="${type.id}"
+                                        th:text="${type.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="photo" class="form-label text-light">Добавить Фото</label><br>
+                            <input type='file' class="btn btn-light action-button" id="photo" name="photos"
+                                   multiple="multiple"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -45,7 +45,7 @@ public class HibernatePostRepository implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        crudRepository.tx(session -> session.save(post));
+        crudRepository.run(session -> session.persist(post));
         return post;
     }
 

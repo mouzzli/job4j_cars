@@ -19,7 +19,7 @@ public class HibernatePostPhotoRepository implements PostPhotoRepository {
 
     @Override
     public PostPhoto save(PostPhoto postPhoto) {
-        crudRepository.tx(session -> session.save(postPhoto));
+        crudRepository.run(session -> session.persist(postPhoto));
         return postPhoto;
     }
 

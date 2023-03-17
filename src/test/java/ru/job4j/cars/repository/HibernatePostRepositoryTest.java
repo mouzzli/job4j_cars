@@ -29,6 +29,7 @@ class HibernatePostRepositoryTest {
     private static CarRepository carRepository;
     private static UserRepository userRepository;
     private static PostPhotoRepository postPhotoRepository;
+    private static FuelRepository fuelRepository;
     private static SessionFactory sf;
 
     @BeforeAll
@@ -46,6 +47,7 @@ class HibernatePostRepositoryTest {
         postRepository = new HibernatePostRepository(crudRepository);
         userRepository = new HibernateUserRepository(crudRepository);
         postPhotoRepository = new HibernatePostPhotoRepository(crudRepository);
+        fuelRepository = new HibernateFuelRepository(crudRepository);
     }
 
     @AfterEach
@@ -61,6 +63,7 @@ class HibernatePostRepositoryTest {
         session.createQuery("DELETE FROM Engine").executeUpdate();
         session.createQuery("DELETE FROM Color").executeUpdate();
         session.createQuery("DELETE FROM User").executeUpdate();
+        session.createQuery("DELETE FROM Fuel ").executeUpdate();
         Transaction tr = session.getTransaction();
         tr.commit();
         session.close();
@@ -72,7 +75,9 @@ class HibernatePostRepositoryTest {
         userRepository.save(user);
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
@@ -80,7 +85,7 @@ class HibernatePostRepositoryTest {
         typeRepository.save(type);
         Transmission transmission = new Transmission(0, "вариатор");
         transmissionRepository.save(transmission);
-        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, "97000");
+        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, 97000);
         carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>());
         postRepository.save(post);
@@ -93,16 +98,18 @@ class HibernatePostRepositoryTest {
         userRepository.save(user);
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
         Type type = new Type(0, "Внедорожник");
         typeRepository.save(type);
-        Transmission transmission = new Transmission(1, "вариатор");
+        Transmission transmission = new Transmission(0, "вариатор");
         transmissionRepository.save(transmission);
-        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, "97000");
-        Car car2 = new Car(0, "Toyota", "Corolla", 2008, engine, transmission, wheelDrive, color, type, "110000");
+        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, 97000);
+        Car car2 = new Car(0, "Toyota", "Corolla", 2008, engine, transmission, wheelDrive, color, type, 110000);
         carRepository.save(car);
         carRepository.save(car2);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>());
@@ -118,16 +125,18 @@ class HibernatePostRepositoryTest {
         userRepository.save(user);
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
         Type type = new Type(0, "Внедорожник");
         typeRepository.save(type);
-        Transmission transmission = new Transmission(1, "вариатор");
+        Transmission transmission = new Transmission(0, "вариатор");
         transmissionRepository.save(transmission);
-        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, "97000");
-        Car car2 = new Car(0, "Mitsubishi", "Outlander XL", 2008, engine, transmission, wheelDrive, color, type, "110000");
+        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, 97000);
+        Car car2 = new Car(0, "Mitsubishi", "Outlander XL", 2008, engine, transmission, wheelDrive, color, type, 110000);
         carRepository.save(car);
         carRepository.save(car2);
         Post post = new Post(0, "testDescription", LocalDateTime.now().minus(1, ChronoUnit.HOURS), BigDecimal.valueOf(1250000), user, car, new ArrayList<>());
@@ -143,15 +152,17 @@ class HibernatePostRepositoryTest {
         userRepository.save(user);
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
         Type type = new Type(0, "Внедорожник");
         typeRepository.save(type);
-        Transmission transmission = new Transmission(1, "вариатор");
+        Transmission transmission = new Transmission(0, "вариатор");
         transmissionRepository.save(transmission);
-        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, "97000");
+        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, 97000);
         carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.now().minus(1, ChronoUnit.HOURS), BigDecimal.valueOf(1250000), user, car, new ArrayList<>());
         postRepository.save(post);
@@ -166,15 +177,17 @@ class HibernatePostRepositoryTest {
         userRepository.save(user);
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
         Type type = new Type(0, "Внедорожник");
         typeRepository.save(type);
-        Transmission transmission = new Transmission(1, "вариатор");
+        Transmission transmission = new Transmission(0, "вариатор");
         transmissionRepository.save(transmission);
-        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, "97000");
+        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, 97000);
         carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.now().minus(1, ChronoUnit.HOURS), BigDecimal.valueOf(1250000), user, car, new ArrayList<>());
         postRepository.save(post);
@@ -191,16 +204,18 @@ class HibernatePostRepositoryTest {
         userRepository.save(user);
         Color color = new Color(0, "серебро");
         colorRepository.save(color);
-        Engine engine = new Engine(0, "4B12", 180, 2.4, "безниновый");
+        Fuel fuel = new Fuel(0, "бензиновый");
+        fuelRepository.save(fuel);
+        Engine engine = new Engine(0, 180, 2.4, fuel);
         engineRepository.save(engine);
         WheelDrive wheelDrive = new WheelDrive(0, "полный");
         wheelDriveRepository.save(wheelDrive);
         Type type = new Type(0, "Внедорожник");
         typeRepository.save(type);
-        Transmission transmission = new Transmission(1, "вариатор");
+        Transmission transmission = new Transmission(0, "вариатор");
         transmissionRepository.save(transmission);
-        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, "97000");
-        Car car2 = new Car(0, "Toyota", "Corolla", 2008, engine, transmission, wheelDrive, color, type, "110000");
+        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, 97000);
+        Car car2 = new Car(0, "Toyota", "Corolla", 2008, engine, transmission, wheelDrive, color, type, 110000);
         carRepository.save(car);
         carRepository.save(car2);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>());

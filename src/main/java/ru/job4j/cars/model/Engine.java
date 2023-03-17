@@ -1,9 +1,6 @@
 package ru.job4j.cars.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -18,9 +15,14 @@ public class Engine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    private String name;
+
+    @Column(nullable = false)
     private double power;
+
     @Column(name = "cubic_capacity")
     private double cubicCapacity;
-    private String fuel;
+
+    @ManyToOne
+    @JoinColumn(name = "fuel_id", nullable = false)
+    private Fuel fuel;
 }

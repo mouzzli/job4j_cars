@@ -16,7 +16,7 @@ public class HibernateUserRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-        crudRepository.tx(session -> session.save(user));
+        crudRepository.run(session -> session.persist(user));
         return user;
     }
 

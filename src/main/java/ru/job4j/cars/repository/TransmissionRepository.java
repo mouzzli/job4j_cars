@@ -2,6 +2,7 @@ package ru.job4j.cars.repository;
 
 import ru.job4j.cars.model.Transmission;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TransmissionRepository {
@@ -13,4 +14,6 @@ public interface TransmissionRepository {
     boolean delete(int id);
 
     boolean update(Transmission transmission);
+
+    List<Transmission> findAll();
 }
