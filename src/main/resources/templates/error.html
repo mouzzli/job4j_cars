@@ -18,7 +18,7 @@
 <div>
     <div class="header-blue">
         <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
-            <div class="container"><a class="navbar-brand" href="#">Проект Cars</a>
+            <div class="container"><a class="navbar-brand" href="@{/index}">Проект Cars</a>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
                         class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse"
@@ -42,8 +42,7 @@
             </div>
         </nav>
         <div class="container hero">
-                <h1>Привет Сафулька!</h1>
-            <p>В это блоке будут размещатся объявления</p>
+            <h3 th:text="${error}" class="text-danger"></h3>
         </div>
     </div>
 </div>

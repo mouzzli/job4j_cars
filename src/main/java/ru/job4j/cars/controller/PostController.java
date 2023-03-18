@@ -31,9 +31,9 @@ public class PostController {
         return "addPost";
     }
 
-    @PostMapping ("/addPost")
+    @PostMapping("/addPost")
     public String addPost(@ModelAttribute Car car, @ModelAttribute Engine engine, @ModelAttribute Post post) {
-        postService.save(post, car, engine);
-        return "redirect:/";
+            postService.save(post, car, engine);
+            return "redirect:/index";
     }
 }
