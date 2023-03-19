@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
@@ -44,7 +42,7 @@
         </nav>
 
         <div class="container mt-5">
-            <form th:action="@{/addPost}" method="post">
+            <form th:action="@{/addPost}" method="post" enctype="multipart/form-data">
                 <div class="row gx-xl-5 d-flex justify-content-center">
                     <div class="col-md-5">
                         <div class="mb-3">
@@ -142,7 +140,7 @@
 
                         <div class="mb-3">
                             <label for="photo" class="form-label text-light">Добавить Фото</label><br>
-                            <input type='file' class="btn btn-light action-button" id="photo" name="photos"
+                            <input type='file' accept="image/*" class="btn btn-light action-button" id="photo" name="photos"
                                    multiple="multiple"/>
                         </div>
                     </div>

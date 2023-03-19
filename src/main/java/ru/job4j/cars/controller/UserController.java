@@ -3,6 +3,7 @@ package ru.job4j.cars.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +57,7 @@ public class UserController {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public String handlerRegistrationUser(ConstraintViolationException e, Model model) {
         log.error("Ошибка добавления пользователя", e);
         model.addAttribute("error", "Пользователь с таким логином уже существует!");
