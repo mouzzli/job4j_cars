@@ -11,6 +11,7 @@ import ru.job4j.cars.service.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/posts")
 @AllArgsConstructor
 public class PostController {
     private ColorService colorService;
@@ -27,7 +28,7 @@ public class PostController {
         model.addAttribute("wheelDrives", wheelDriveService.findAll());
         model.addAttribute("fuels", fuelService.findAll());
         model.addAttribute("types", typeService.findAll());
-        return "addPost";
+        return "post/addPost";
     }
 
     @PostMapping("/addPost")
@@ -35,9 +36,14 @@ public class PostController {
                           @ModelAttribute Engine engine,
                           @ModelAttribute Post post,
                           @SessionAttribute User user,
-                          @RequestParam(value = "photos")List<MultipartFile> photos) throws Exception {
-            postService.save(post, car, engine, user, photos);
-            return "redirect:/index";
+                          @RequestParam(value = "photos") List<MultipartFile> photos) throws Exception {
+        postService.save(post, car, engine, user, photos);
+        return "redirect:/index";
     }
 
+    @GetMapping("/index")
+    public String index(Model model) {
+        model.addAttribute("posts", postService.findAll());
+        return "index";
+    }
 }

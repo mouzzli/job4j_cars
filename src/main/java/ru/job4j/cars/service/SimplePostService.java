@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.job4j.cars.dto.PostDto;
+import ru.job4j.cars.mappper.PostMapper;
 import ru.job4j.cars.model.*;
 import ru.job4j.cars.repository.CarRepository;
 import ru.job4j.cars.repository.EngineRepository;
@@ -11,8 +13,6 @@ import ru.job4j.cars.repository.PostPhotoRepository;
 import ru.job4j.cars.repository.PostRepository;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,4 +49,10 @@ public class SimplePostService implements PostService {
     public boolean delete(int id) {
         return postRepository.delete(id);
     }
+
+    @Override
+    public List<PostDto> findAll() {
+        return PostMapper.INSTANCE.toPostDto(postRepository.findAll());
+    }
+
 }

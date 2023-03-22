@@ -4,42 +4,87 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport">
+    <meta content="multipart/form-data">
     <title>Cars</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="header-blue">
-        <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
-            <div class="container"><a class="navbar-brand" href="#">Проект Cars</a>
-                <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
-                        class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse"
-                     id="navcol-1">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/createPost}">Подать
-                            Объявление</a></li>
-                    </ul>
-                    <form class="form-inline mr-auto" target="_self">
-                    </form>
-                    <ul class="navbar-nav">
-                        <div class="d-flex justify-content-end" th:if="${user.id == 0}">
-                            <a class="nav-link nav-item" th:href="@{/users/registrationForm}">Регистрация</a>
-                            <a class="nav-link nav-item" th:href="@{/users/loginForm}">Войти</a>
+<div class="header-blue">
+    <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+        <div class="container"><a class="navbar-brand" href="#">Проект Cars</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                 id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/posts/createPost}">Подать
+                        Объявление</a></li>
+                </ul>
+                <form class="form-inline mr-auto" target="_self">
+                </form>
+                <ul class="navbar-nav">
+                    <div class="d-flex justify-content-end" th:if="${user.id == 0}">
+                        <a class="nav-link nav-item" th:href="@{/users/registrationForm}">Регистрация</a>
+                        <a class="nav-link nav-item" th:href="@{/users/loginForm}">Войти</a>
+                    </div>
+                    <div class="d-flex justify-content-end" th:if="${user.id != 0}">
+                        <a class="nav-link nav-item" th:text="${user.login}"></a>
+                        <a class="nav-link nav-item" th:href="@{/users/logout}">Выйти</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="d-flex justify-content-center" th:each="post:${posts}">
+            <div class="card mb-3" style="width: 600px">
+
+                <div th:id="'slider' + ${post.id}" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div th:each="photo, i : ${post.postPhotos}"
+                             th:class="${i.index == 0  ? 'carousel-item active':'carousel-item'}">
+                            <img th:src="'data:image/jpg;base64,' + ${photo}" class="d-block w-100" height="400">
                         </div>
-                        <div class="d-flex justify-content-end" th:if="${user.id != 0}">
-                            <a class="nav-link nav-item" th:text="${user.login}"></a>
-                            <a class="nav-link nav-item" th:href="@{/users/logout}">Выйти</a>
-                        </div>
-                    </ul>
+                    </div>
+                    <button class="carousel-control-prev" type="button" th:data-bs-target="'#slider' + ${post.id} "
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" th:data-bs-target="'#slider' + ${post.id}"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${post.car.brand} + ' ' + ${post.car.model} + ' '
+                                + ${post.car.manufacturedYear}">
+                    </h3>
+                    <h5 class="card-text" th:text="'цена: ' + ${post.price} + 'руб.'"></h5>
+                    <br>
+                    <p class="card-text" th:text="'трансмиссия: ' + ${post.car.transmission.name}"></p>
+                    <p class="card-text" th:text="'привод: ' + ${post.car.wheelDrive.name}"></p>
+                    <p class="card-text" th:text="'объём/лс/тип топлива: '  + ${post.car.engine.cubicCapacity} + '/' +  ${post.car.engine.power} + '/' +  ${post.car.engine.fuel.name}"></p>
+                    <p class="card-text" th:text="'пробег: ' + ${post.car.mileage}"></p>
+                    <p class="card-text" th:text="'кузов: ' + ${post.car.type.name}"></p>
+                    <p class="card-text" th:text="'дата публикации: ' + ${#temporals.format(post.created, 'dd-MM-yyyy')}"></p>
+                    <p class="card-text" th:text="'описание: ' + ${post.description}"></p>
                 </div>
             </div>
-        </nav>
+        </div>
     </div>
-
-
+</div>
 </body>
 </html>
+

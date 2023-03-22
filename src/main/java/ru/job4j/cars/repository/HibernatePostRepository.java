@@ -24,6 +24,8 @@ public class HibernatePostRepository implements PostRepository {
             + "WHERE p.id = :id";
     private static final String DELETE_BY_ID = "DELETE FROM Post "
             + "WHERE id = :id";
+    private static final String FIND_ALL = "SELECT DISTINCT p FROM Post p "
+            + "LEFT JOIN FETCH p.postPhotos";
     private CrudRepository crudRepository;
 
     @Override
@@ -69,5 +71,10 @@ public class HibernatePostRepository implements PostRepository {
     @Override
     public Optional<Post> findById(int id) {
         return crudRepository.optional(FIND_BY_ID, Post.class, Map.of("id", id));
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return crudRepository.query(FIND_ALL, Post.class);
     }
 }

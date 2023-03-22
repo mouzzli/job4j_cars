@@ -1,3 +1,3 @@
-INSERT INTO wheel_drive (name) VALUES ('Передний');
-INSERT INTO wheel_drive (name) VALUES ('Полный');
-INSERT INTO wheel_drive (name) VALUES ('Задний');
+INSERT INTO wheel_drive (name) VALUES ('передний');
+INSERT INTO wheel_drive (name) VALUES ('полный');
+INSERT INTO wheel_drive (name) VALUES ('задний');

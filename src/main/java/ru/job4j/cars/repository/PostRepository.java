@@ -19,4 +19,6 @@ public interface PostRepository {
     List<Post> findWithPhoto();
 
     List<Post> findByBrand(String brand);
+
+    List<Post> findAll();
 }

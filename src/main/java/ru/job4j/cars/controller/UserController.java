@@ -44,7 +44,7 @@ public class UserController {
         if (optionalUser.isPresent()) {
             var session = request.getSession();
             session.setAttribute("user", optionalUser.get());
-            return "redirect:/index";
+            return "redirect:/posts/index";
         }
         model.addAttribute("error", "Пользователь с таким логином или паролем не найден!");
         return "user/login";
