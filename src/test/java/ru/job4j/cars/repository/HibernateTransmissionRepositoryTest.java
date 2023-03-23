@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.Transmission;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,5 +67,15 @@ class HibernateTransmissionRepositoryTest {
         assertThat(transmissionRepository.findById(transmission.getId()).get()).isEqualTo(transmission);
         transmission.setId(0);
         assertThat(transmissionRepository.update(transmission)).isFalse();
+    }
+
+    @Test
+    public void whenSaveThenFindAll() {
+        Transmission transmission = new Transmission(0, "механическая");
+        transmissionRepository.save(transmission);
+        Transmission transmission2 = new Transmission(0, "вариатор");
+        transmissionRepository.save(transmission2);
+        List<Transmission> transmissionList = transmissionRepository.findAll();
+        assertThat(transmissionList).hasSameElementsAs(List.of(transmission, transmission2));
     }
 }

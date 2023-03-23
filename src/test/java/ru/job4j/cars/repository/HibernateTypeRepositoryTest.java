@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.Type;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,5 +66,15 @@ class HibernateTypeRepositoryTest {
         assertThat(typeRepository.findById(type.getId()).get()).isEqualTo(type);
         type.setId(0);
         assertThat(typeRepository.update(type)).isFalse();
+    }
+
+    @Test
+    void whenSaveThenFindAll() {
+        Type type = new Type(0, "универсал");
+        typeRepository.save(type);
+        Type type2 = new Type(0, "внедорожник");
+        typeRepository.save(type2);
+        List<Type> typeList = typeRepository.findAll();
+        assertThat(typeList).hasSameElementsAs(List.of(type, type2));
     }
 }

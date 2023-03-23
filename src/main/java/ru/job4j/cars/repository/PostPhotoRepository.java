@@ -2,7 +2,6 @@ package ru.job4j.cars.repository;
 
 import ru.job4j.cars.model.PostPhoto;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface PostPhotoRepository {
@@ -11,6 +10,4 @@ public interface PostPhotoRepository {
     Optional<PostPhoto> findById(int id);
 
     boolean delete(int id);
-
-    List<PostPhoto> findByPostId(int id);
 }

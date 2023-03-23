@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.PostPhoto;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,8 +14,6 @@ public class HibernatePostPhotoRepository implements PostPhotoRepository {
             + "WHERE id = :id";
     private static final String DELETE_BY_ID = "DELETE FROM PostPhoto "
             + "WHERE id = :id";
-    private static final String FIND_BY_POST_ID = "FROM PostPhoto "
-            + "WHERE postId = :postId";
 
     private CrudRepository crudRepository;
 
@@ -36,8 +33,4 @@ public class HibernatePostPhotoRepository implements PostPhotoRepository {
         return crudRepository.update(DELETE_BY_ID, Map.of("id", id));
     }
 
-    @Override
-    public List<PostPhoto> findByPostId(int id) {
-        return crudRepository.query(FIND_BY_POST_ID, PostPhoto.class, Map.of("postId", id));
-    }
 }

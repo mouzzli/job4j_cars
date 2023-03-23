@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.Color;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,5 +67,15 @@ class HibernateColorRepositoryTest {
         assertThat(colorRepository.delete(color.getId())).isFalse();
         assertThat(colorRepository.findById(color.getId())).isEmpty();
 
+    }
+
+    @Test
+    public void whenSaveThenFindAll() {
+        Color color = new Color(0, "серебро");
+        colorRepository.save(color);
+        Color color2 = new Color(0, "красный");
+        colorRepository.save(color2);
+        List<Color> colorList = colorRepository.findAll();
+        assertThat(colorList).hasSameElementsAs(List.of(color, color2));
     }
 }

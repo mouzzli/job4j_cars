@@ -11,11 +11,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.model.WheelDrive;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class HibernateWheelDriveServiceRepositoryTest {
+class HibernateWheelDriveRepositoryTest {
 
     private static WheelDriveRepository wheelDriveRepository;
     private static SessionFactory sf;
@@ -67,5 +68,15 @@ class HibernateWheelDriveServiceRepositoryTest {
         assertThat(wheelDriveRepository.findById(wheelDrive.getId()).get()).isEqualTo(wheelDrive);
         wheelDrive.setId(0);
         assertThat(wheelDriveRepository.update(wheelDrive)).isFalse();
+    }
+
+    @Test
+    public void whenSaveThenFindAll() {
+        WheelDrive wheelDrive = new WheelDrive(0, "полный");
+        wheelDriveRepository.save(wheelDrive);
+        WheelDrive wheelDrive2 = new WheelDrive(0, "передний");
+        wheelDriveRepository.save(wheelDrive2);
+        List<WheelDrive> wheelDrives = wheelDriveRepository.findAll();
+        assertThat(wheelDrives).hasSameElementsAs(List.of(wheelDrive, wheelDrive2));
     }
 }
