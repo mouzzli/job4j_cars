@@ -21,8 +21,8 @@ public class PostController {
     private TypeService typeService;
     private PostService postService;
 
-    @GetMapping("/createPost")
-    public String createPost(Model model) {
+    @GetMapping("/formPost")
+    public String getPostForm(Model model) {
         model.addAttribute("colors", colorService.findAll());
         model.addAttribute("transmissions", transmissionService.findAll());
         model.addAttribute("wheelDrives", wheelDriveService.findAll());
@@ -32,10 +32,10 @@ public class PostController {
     }
 
     @PostMapping("/addPost")
-    public String addPost(@ModelAttribute Car car,
-                          @ModelAttribute Engine engine,
-                          @ModelAttribute Post post,
+    public String addPost(@ModelAttribute Post post,
+                          @ModelAttribute Car car,
                           @SessionAttribute User user,
+                          @ModelAttribute Engine engine,
                           @RequestParam(value = "photos") List<MultipartFile> photos) throws Exception {
         postService.save(post, car, engine, user, photos);
         return "redirect:/index";
