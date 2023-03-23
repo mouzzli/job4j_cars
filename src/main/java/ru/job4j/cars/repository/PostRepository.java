@@ -21,4 +21,6 @@ public interface PostRepository {
     List<Post> findByBrand(String brand);
 
     List<Post> findAll();
+
+    boolean changeStatus(boolean status, int postId);
 }

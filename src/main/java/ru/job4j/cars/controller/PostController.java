@@ -41,9 +41,9 @@ public class PostController {
         return "redirect:/index";
     }
 
-    @GetMapping("/index")
-    public String index(Model model) {
-        model.addAttribute("posts", postService.findAll());
-        return "index";
+    @PostMapping("/changeStatus")
+    public String changeStatus(@RequestParam("status") boolean status, @RequestParam("post.id") int postId) {
+        postService.changeStatus(status, postId);
+        return "redirect:/index";
     }
 }

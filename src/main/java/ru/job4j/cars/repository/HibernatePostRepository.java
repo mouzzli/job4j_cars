@@ -26,6 +26,9 @@ public class HibernatePostRepository implements PostRepository {
             + "WHERE id = :id";
     private static final String FIND_ALL = "SELECT DISTINCT p FROM Post p "
             + "LEFT JOIN FETCH p.postPhotos";
+    private static final String CHANGE_STATUS = "UPDATE FROM Post "
+            + "SET isActive = :status "
+            + "WHERE id = :id";
     private CrudRepository crudRepository;
 
     @Override
@@ -76,5 +79,10 @@ public class HibernatePostRepository implements PostRepository {
     @Override
     public List<Post> findAll() {
         return crudRepository.query(FIND_ALL, Post.class);
+    }
+
+    @Override
+    public boolean changeStatus(boolean status, int postId) {
+        return crudRepository.update(CHANGE_STATUS, Map.of("status", status, "id", postId));
     }
 }

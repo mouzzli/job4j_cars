@@ -55,4 +55,8 @@ public class SimplePostService implements PostService {
         return PostMapper.INSTANCE.toPostDto(postRepository.findAll());
     }
 
+    @Override
+    public boolean changeStatus(boolean status, int postId) {
+        return postRepository.changeStatus(status, postId);
+    }
 }

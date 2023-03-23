@@ -26,7 +26,7 @@ public interface PostMapper {
                 .collect(Collectors.toList());
     }
 
-    static List<String> map(List<PostPhoto> value) {
+    default List<String> map(List<PostPhoto> value) {
         return byteToBase64Converter(value);
     }
 }

@@ -17,4 +17,6 @@ public interface PostService {
     boolean delete(int id);
 
     List<PostDto> findAll();
+
+    boolean changeStatus(boolean status, int postId);
 }

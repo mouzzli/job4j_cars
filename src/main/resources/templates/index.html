@@ -80,6 +80,13 @@
                     <p class="card-text" th:text="'кузов: ' + ${post.car.type.name}"></p>
                     <p class="card-text" th:text="'дата публикации: ' + ${#temporals.format(post.created, 'dd-MM-yyyy')}"></p>
                     <p class="card-text" th:text="'описание: ' + ${post.description}"></p>
+                    <p class="card-text" th:text="${post.isActive}? 'статус: Активно': 'статус: Продано'" ></p>
+                    <form th:if="${session.user == post.user}" th:action="@{/posts/changeStatus}" method="post">
+                        <input type="hidden" name="status" th:value="${!post.isActive}">
+                        <input type="hidden" name="post.id" th:value="${post.id}">
+                        <button type="submit" class="btn btn-outline-primary">Сменить Статус</button>
+                    </form>
+
                 </div>
             </div>
         </div>
