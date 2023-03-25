@@ -1,2 +1,0 @@
-ALTER TABLE auto_post
-    ADD COLUMN price DECIMAL(10) NOT NULL;

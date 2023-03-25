@@ -63,24 +63,24 @@
 
                         <div class="mb-3">
                             <label for="color" class="form-label text-light">Цвет</label>
-                            <select class="form-control" id="color" name="color.id" required>
-                                <option th:each="color : ${colors}" th:value="${color.id}"
+                            <select class="form-control" id="color" name="color" required>
+                                <option th:each="color : ${colors}" th:value="${color}"
                                         th:text="${color.name}"></option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="transmission" class="form-label text-light">Коробка Передач</label>
-                            <select class="form-control" id="transmission" name="transmission.id" required>
-                                <option th:each="transmission : ${transmissions}" th:value="${transmission.id}"
+                            <select class="form-control" id="transmission" name="transmission" required>
+                                <option th:each="transmission : ${transmissions}" th:value="${transmission}"
                                         th:text="${transmission.name}"></option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="wheelDrive" class="form-label text-light">Привод</label>
-                            <select class="form-control" id="wheelDrive" name="wheelDrive.id" required>
-                                <option th:each="wheelDrive : ${wheelDrives}" th:value="${wheelDrive.id}"
+                            <select class="form-control" id="wheelDrive" name="wheelDrive" required>
+                                <option th:each="wheelDrive : ${wheelDrives}" th:value="${wheelDrive}"
                                         th:text="${wheelDrive.name}"></option>
                             </select>
                         </div>
@@ -124,16 +124,16 @@
 
                         <div class="mb-3">
                             <label for="fuel" class="form-label text-light">Вид Топлива</label>
-                            <select class="form-control" id="fuel" name="fuel.id" required>
-                                <option th:each="fuel : ${fuels}" th:value="${fuel.id}"
+                            <select class="form-control" id="fuel" name="fuel" required>
+                                <option th:each="fuel : ${fuels}" th:value="${fuel}"
                                         th:text="${fuel.name}"></option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="type" class="form-label text-light">Тип Кузова</label>
-                            <select class="form-control" id="type" name="type.id" required>
-                                <option th:each="type : ${types}" th:value="${type.id}"
+                            <select class="form-control" id="type" name="type" required>
+                                <option th:each="type : ${types}" th:value="${type}"
                                         th:text="${type.name}"></option>
                             </select>
                         </div>

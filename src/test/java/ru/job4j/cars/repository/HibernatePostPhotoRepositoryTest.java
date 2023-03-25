@@ -19,15 +19,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class HibernatePostPhotoRepositoryTest {
     private static PostRepository postRepository;
-    private static ColorRepository colorRepository;
     private static EngineRepository engineRepository;
-    private static WheelDriveRepository wheelDriveRepository;
-    private static TypeRepository typeRepository;
-    private static TransmissionRepository transmissionRepository;
     private static CarRepository carRepository;
     private static UserRepository userRepository;
     private static PostPhotoRepository postPhotoRepository;
-    private static FuelRepository fuelRepository;
     private static SessionFactory sf;
 
     @BeforeAll
@@ -36,16 +31,11 @@ class HibernatePostPhotoRepositoryTest {
                 .configure().build();
         sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         CrudRepository crudRepository = new CrudRepository(sf);
-        colorRepository = new HibernateColorRepository(crudRepository);
         engineRepository = new HibernateEngineRepository(crudRepository);
-        wheelDriveRepository = new HibernateWheelDriveRepository(crudRepository);
-        typeRepository = new HibernateTypeRepository(crudRepository);
-        transmissionRepository = new HibernateTransmissionRepository(crudRepository);
         carRepository = new HibernateCarRepository(crudRepository);
         postRepository = new HibernatePostRepository(crudRepository);
         userRepository = new HibernateUserRepository(crudRepository);
         postPhotoRepository = new HibernatePostPhotoRepository(crudRepository);
-        fuelRepository = new HibernateFuelRepository(crudRepository);
     }
 
     @AfterEach
@@ -55,13 +45,8 @@ class HibernatePostPhotoRepositoryTest {
         session.createQuery("DELETE FROM PostPhoto").executeUpdate();
         session.createQuery("DELETE FROM Post ").executeUpdate();
         session.createQuery("DELETE FROM Car").executeUpdate();
-        session.createQuery("DELETE FROM Transmission").executeUpdate();
-        session.createQuery("DELETE FROM Type").executeUpdate();
-        session.createQuery("DELETE FROM WheelDrive").executeUpdate();
         session.createQuery("DELETE FROM Engine").executeUpdate();
-        session.createQuery("DELETE FROM Color").executeUpdate();
         session.createQuery("DELETE FROM User").executeUpdate();
-        session.createQuery("DELETE FROM Fuel").executeUpdate();
         Transaction tr = session.getTransaction();
         tr.commit();
         session.close();
@@ -71,19 +56,9 @@ class HibernatePostPhotoRepositoryTest {
     public void whenSaveThenFindById() {
         User user = new User(0, "login", "password");
         userRepository.save(user);
-        Color color = new Color(0, "серебро");
-        colorRepository.save(color);
-        Fuel fuel = new Fuel(0, "бензиновый");
-        fuelRepository.save(fuel);
-        Engine engine = new Engine(0, 180, 2.4, fuel);
+        Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
         engineRepository.save(engine);
-        WheelDrive wheelDrive = new WheelDrive(0, "полный");
-        wheelDriveRepository.save(wheelDrive);
-        Type type = new Type(0, "Внедорожник");
-        typeRepository.save(type);
-        Transmission transmission = new Transmission(0, "вариатор");
-        transmissionRepository.save(transmission);
-        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, 97000);
+        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
         carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         postRepository.save(post);
@@ -96,19 +71,9 @@ class HibernatePostPhotoRepositoryTest {
     public void whenSaveThenDelete() {
         User user = new User(0, "login", "password");
         userRepository.save(user);
-        Color color = new Color(0, "серебро");
-        colorRepository.save(color);
-        Fuel fuel = new Fuel(0, "бензиновый");
-        fuelRepository.save(fuel);
-        Engine engine = new Engine(0, 180, 2.4, fuel);
+        Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
         engineRepository.save(engine);
-        WheelDrive wheelDrive = new WheelDrive(0, "полный");
-        wheelDriveRepository.save(wheelDrive);
-        Type type = new Type(0, "Внедорожник");
-        typeRepository.save(type);
-        Transmission transmission = new Transmission(0, "вариатор");
-        transmissionRepository.save(transmission);
-        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, transmission, wheelDrive, color, type, 97000);
+        Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
         carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         postRepository.save(post);

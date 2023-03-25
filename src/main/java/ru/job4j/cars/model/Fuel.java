@@ -1,24 +1,19 @@
 package ru.job4j.cars.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+public enum Fuel {
+    PETROL("бензин"),
+    DIESEL("дизель"),
+    ELECTRIC("электро"),
+    HYBRID_PETROL_ELECTRIC("бензин/электро"),
+    HYBRID_DIESEL_ELECTRIC("дизель/электро");
 
-import javax.persistence.*;
+    private final String name;
 
-@Entity
-@Table(name = "fuel")
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor
-public class Fuel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private int id;
+    Fuel(String name) {
+        this.name = name;
+    }
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    public String getName() {
+        return name;
+    }
 }

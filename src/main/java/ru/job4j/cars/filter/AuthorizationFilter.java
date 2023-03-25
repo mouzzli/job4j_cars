@@ -16,20 +16,13 @@ import java.util.Set;
 @Component
 @Order(1)
 public class AuthorizationFilter extends HttpFilter {
-    private static final String ERROR = "/error";
-    private static final String LOGIN = "/users/login";
-    private static final String REGISTER = "/users/registration";
-    private static final String INDEX = "/index";
-    private static final String CSS = "/css";
-    private static final String PHOTO = "/photo";
-
     private static final Set<String> FILTER_VALUES = new HashSet<>(Arrays.asList(
-            ERROR,
-            LOGIN,
-            INDEX,
-            CSS,
-            PHOTO,
-            REGISTER));
+            "/error",
+            "/users/login",
+            "/index",
+            "/css",
+            "/photo",
+            "/users/registration"));
 
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {

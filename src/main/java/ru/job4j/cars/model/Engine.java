@@ -22,7 +22,6 @@ public class Engine {
     @Column(name = "cubic_capacity")
     private double cubicCapacity;
 
-    @ManyToOne
-    @JoinColumn(name = "fuel_id", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Fuel fuel;
 }

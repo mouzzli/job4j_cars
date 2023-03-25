@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DataSourceConfig {
+public class HibernateConfiguration {
 
     @Bean(destroyMethod = "close")
     public SessionFactory sf() {

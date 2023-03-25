@@ -30,20 +30,17 @@ public class Car {
     @JoinColumn(name = "engine_id")
     private Engine engine;
 
-    @ManyToOne
-    @JoinColumn(name = "transmission_id")
+    @Enumerated(EnumType.STRING)
     private Transmission transmission;
 
-    @ManyToOne
-    @JoinColumn(name = "wheel_drive_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "wheel_drive")
     private WheelDrive wheelDrive;
 
-    @ManyToOne
-    @JoinColumn(name = "color_id")
+    @Enumerated(EnumType.STRING)
     private Color color;
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
+    @Enumerated(EnumType.STRING)
     private Type type;
 
     private int mileage;

@@ -1,4 +1,0 @@
-ALTER TABLE car
-    ADD COLUMN type_id INT NOT NULL REFERENCES type (id);
-ALTER TABLE car
-    ADD COLUMN color_id INT NOT NULL REFERENCES color (id);

@@ -1,23 +1,22 @@
 package ru.job4j.cars.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+public enum Type {
+    HATCHBACK("хетчбэк"),
+    SEDAN("седан"),
+    LIFTBACK("лифтбэк"),
+    STATION_WAGON("универсал"),
+    COUPE("купе"),
+    CROSSOVER("кроссовер"),
+    SPORT_UTILITY("внедорожник"),
+    MINIVAN("минивэн");
 
-import javax.persistence.*;
+    private final String name;
 
-@Entity
-@Table(name = "type")
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor
-public class Type {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private int id;
+    Type(String name) {
+        this.name = name;
+    }
 
-    private String name;
+    public String getName() {
+        return name;
+    }
 }

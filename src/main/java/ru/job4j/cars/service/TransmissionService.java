@@ -5,6 +5,6 @@ import ru.job4j.cars.model.Transmission;
 import java.util.List;
 
 public interface TransmissionService {
-
     List<Transmission> findAll();
 }
+

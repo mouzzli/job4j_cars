@@ -1,2 +1,0 @@
-ALTER TABLE auto_post
-    ADD COLUMN is_active BOOLEAN DEFAULT TRUE;

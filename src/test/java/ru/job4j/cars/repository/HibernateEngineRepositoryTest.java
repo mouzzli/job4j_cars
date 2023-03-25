@@ -19,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class HibernateEngineRepositoryTest {
 
     private static EngineRepository engineRepository;
-    private static FuelRepository fuelRepository;
     private static SessionFactory sf;
 
     @BeforeAll
@@ -29,7 +28,7 @@ class HibernateEngineRepositoryTest {
         sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         CrudRepository crudRepository = new CrudRepository(sf);
         engineRepository = new HibernateEngineRepository(crudRepository);
-        fuelRepository = new HibernateFuelRepository(crudRepository);
+
     }
 
     @AfterEach
@@ -37,7 +36,6 @@ class HibernateEngineRepositoryTest {
         Session session = sf.openSession();
         session.beginTransaction();
         session.createQuery("DELETE FROM Engine").executeUpdate();
-        session.createQuery("DELETE FROM Fuel").executeUpdate();
         Transaction tr = session.getTransaction();
         tr.commit();
         session.close();
@@ -45,9 +43,7 @@ class HibernateEngineRepositoryTest {
 
     @Test
     public void whenSaveThenFindById() {
-        Fuel fuel = new Fuel(0, "бензиновый");
-        fuelRepository.save(fuel);
-        Engine engine = new Engine(0, 180, 2.4, fuel);
+        Engine engine = new Engine(0, 180, 2.4, Fuel.DIESEL);
         Engine savedEngine = engineRepository.save(engine);
         assertThat(savedEngine).isEqualTo(engine);
         Optional<Engine> optionalEngine = engineRepository.findById(savedEngine.getId());
@@ -56,9 +52,7 @@ class HibernateEngineRepositoryTest {
 
     @Test
     public void whenSaveThenDelete() {
-        Fuel fuel = new Fuel(0, "бензиновый");
-        fuelRepository.save(fuel);
-        Engine engine = new Engine(0, 180, 2.4, fuel);
+        Engine engine = new Engine(0, 180, 2.4, Fuel.DIESEL);
         engineRepository.save(engine);
         assertThat(engineRepository.delete(engine.getId())).isTrue();
         assertThat(engineRepository.delete(engine.getId())).isFalse();
@@ -67,9 +61,7 @@ class HibernateEngineRepositoryTest {
 
     @Test
     public void whenSaveThenUpdate() {
-        Fuel fuel = new Fuel(0, "бензиновый");
-        fuelRepository.save(fuel);
-        Engine engine = new Engine(0, 180, 2.4, fuel);
+        Engine engine = new Engine(0, 180, 2.4, Fuel.DIESEL);
         engineRepository.save(engine);
         engine.setPower(125);
         assertThat(engineRepository.update(engine)).isTrue();

@@ -1,23 +1,28 @@
 package ru.job4j.cars.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+public enum Color {
+    BLACK("чёрный"),
+    SILVER("серебристый"),
+    WHITE("белый"),
+    GRAY("серый"),
+    BLUE("синий"),
+    RED("красный"),
+    GREEN("зелёный"),
+    BROWN("коричневый"),
+    BEIGE("бежевый"),
+    GOLDEN("золотистый"),
+    PURPLE("пурпунрый"),
+    VIOLET("фиолетовый"),
+    YELLOW("желтый"),
+    PINK("розовый");
 
-import javax.persistence.*;
+    private final String name;
 
-@Entity
-@Table(name = "color")
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
-@NoArgsConstructor
-public class Color {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private int id;
+    Color(String name) {
+        this.name = name;
+    }
 
-    private String name;
+    public String getName() {
+        return name;
+    }
 }
