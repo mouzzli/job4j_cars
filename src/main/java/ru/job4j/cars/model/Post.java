@@ -30,7 +30,7 @@ public class Post {
     @JoinColumn(name = "auto_user_id")
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private Car car;
 

@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cars.dto.PostDto;
 import ru.job4j.cars.mappper.PostMapper;
 import ru.job4j.cars.model.*;
-import ru.job4j.cars.repository.CarRepository;
 import ru.job4j.cars.repository.EngineRepository;
 import ru.job4j.cars.repository.PostPhotoRepository;
 import ru.job4j.cars.repository.PostRepository;
@@ -20,19 +19,19 @@ import java.util.List;
 @Slf4j
 public class SimplePostService implements PostService {
     private PostRepository postRepository;
-    private CarRepository carRepository;
-    private EngineRepository engineRepository;
     private PostPhotoRepository postPhotoRepository;
+    private EngineRepository engineRepository;
 
     @Override
     @Transactional
     public Post save(Post post, Car car, Engine engine, User user, List<MultipartFile> photos) {
-        engineRepository.save(engine);
+        var optionalEngine = engineRepository.exist(engine);
+        optionalEngine.ifPresent(value -> engine.setId(value.getId()));
         car.setEngine(engine);
-        carRepository.save(car);
         post.setCar(car);
         post.setUser(user);
         var savedPost = postRepository.save(post);
+
         photos.forEach(multipartFile -> {
             if (!multipartFile.isEmpty()) {
                 try {

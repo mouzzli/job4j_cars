@@ -26,7 +26,7 @@ public class Car {
     @Column(name = "manufactured_year")
     private int manufacturedYear;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "engine_id")
     private Engine engine;
 

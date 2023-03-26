@@ -16,7 +16,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class HibernateCarRepositoryTest {
-    private static EngineRepository engineRepository;
     private static CarRepository carRepository;
     private static SessionFactory sf;
 
@@ -26,7 +25,6 @@ class HibernateCarRepositoryTest {
                 .configure().build();
         sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         CrudRepository crudRepository = new CrudRepository(sf);
-        engineRepository = new HibernateEngineRepository(crudRepository);
         carRepository = new HibernateCarRepository(crudRepository);
     }
 
@@ -45,7 +43,6 @@ class HibernateCarRepositoryTest {
     @Test
     public void whenSaveThenFindById() {
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0,
                 "Mitsubishi",
                 "Outlander XL",
@@ -55,7 +52,6 @@ class HibernateCarRepositoryTest {
                 Color.BLACK,
                 Type.CROSSOVER,
                 97000);
-
         Car savedCar = carRepository.save(car);
         assertThat(savedCar).isEqualTo(car);
         Optional<Car> optionalCar = carRepository.findById(savedCar.getId());
@@ -65,7 +61,6 @@ class HibernateCarRepositoryTest {
     @Test
     public void whenSaveThenDelete() {
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0,
                 "Mitsubishi",
                 "Outlander XL",
@@ -84,7 +79,6 @@ class HibernateCarRepositoryTest {
     @Test
     public void whenSaveThenUpdate() {
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0,
                 "Mitsubishi",
                 "Outlander XL",
@@ -96,9 +90,7 @@ class HibernateCarRepositoryTest {
                 97000);
         carRepository.save(car);
         car.setBrand("Toyota");
-        assertThat(carRepository.update(car)).isTrue();
+        carRepository.update(car);
         assertThat(carRepository.findById(car.getId()).get()).isEqualTo(car);
-        car.setId(0);
-        assertThat(carRepository.update(car)).isFalse();
     }
 }

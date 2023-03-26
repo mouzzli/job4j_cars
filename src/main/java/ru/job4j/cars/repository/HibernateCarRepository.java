@@ -28,15 +28,8 @@ public class HibernateCarRepository implements CarRepository {
     }
 
     @Override
-    public boolean update(Car car) {
-        return crudRepository.tx(session -> {
-            Car savedCar = session.get(Car.class, car.getId());
-            if (savedCar != null) {
-                session.merge(car);
-                return true;
-            }
-            return false;
-        });
+    public void update(Car car) {
+        crudRepository.run(session -> session.merge(car));
     }
 
     @Override

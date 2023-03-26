@@ -22,8 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class HibernatePostRepositoryTest {
     private static PostRepository postRepository;
-    private static EngineRepository engineRepository;
-    private static CarRepository carRepository;
     private static UserRepository userRepository;
     private static PostPhotoRepository postPhotoRepository;
     private static SessionFactory sf;
@@ -34,8 +32,6 @@ class HibernatePostRepositoryTest {
                 .configure().build();
         sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         CrudRepository crudRepository = new CrudRepository(sf);
-        engineRepository = new HibernateEngineRepository(crudRepository);
-        carRepository = new HibernateCarRepository(crudRepository);
         postRepository = new HibernatePostRepository(crudRepository);
         userRepository = new HibernateUserRepository(crudRepository);
         postPhotoRepository = new HibernatePostPhotoRepository(crudRepository);
@@ -60,9 +56,7 @@ class HibernatePostRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
-        carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         postRepository.save(post);
         assertThat(postRepository.findById(post.getId()).get()).isEqualTo(post);
@@ -73,11 +67,8 @@ class HibernatePostRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
         Car car2 = new Car(0, "Toyota", "Corolla", 2008, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 110000);
-        carRepository.save(car);
-        carRepository.save(car2);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         Post post2 = new Post(0, "testDescription", LocalDateTime.of(2021, 1, 1, 12, 50), BigDecimal.valueOf(1000000), user, car2, new ArrayList<>(), true);
         postRepository.save(post);
@@ -90,11 +81,8 @@ class HibernatePostRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
         Car car2 = new Car(0, "Mitsubishi", "Outlander XL", 2008, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 110000);
-        carRepository.save(car);
-        carRepository.save(car2);
         Post post = new Post(0, "testDescription", LocalDateTime.now().minus(1, ChronoUnit.HOURS), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         Post post2 = new Post(0, "testDescription", LocalDateTime.now().minus(3, ChronoUnit.DAYS), BigDecimal.valueOf(1000000), user, car2, new ArrayList<>(), true);
         postRepository.save(post);
@@ -107,9 +95,7 @@ class HibernatePostRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
-        carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.now().minus(1, ChronoUnit.HOURS), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         postRepository.save(post);
         assertThat(postRepository.delete(post.getId())).isTrue();
@@ -122,16 +108,12 @@ class HibernatePostRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
-        carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.now().minus(1, ChronoUnit.HOURS), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         postRepository.save(post);
         post.setDescription("new Description");
-        assertThat(postRepository.update(post)).isTrue();
+        postRepository.update(post);
         assertThat(postRepository.findById(post.getId()).get().getDescription()).isEqualTo("new Description");
-        post.setId(0);
-        assertThat(postRepository.update(post)).isFalse();
     }
 
     @Test
@@ -139,11 +121,8 @@ class HibernatePostRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
         Car car2 = new Car(0, "Toyota", "Corolla", 2008, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 110000);
-        carRepository.save(car);
-        carRepository.save(car2);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         Post post2 = new Post(0, "testDescription", LocalDateTime.of(2021, 1, 1, 12, 50), BigDecimal.valueOf(1000000), user, car2, new ArrayList<>(), true);
         postRepository.save(post);
@@ -158,11 +137,8 @@ class HibernatePostRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
         Car car2 = new Car(0, "Toyota", "Corolla", 2008, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 110000);
-        carRepository.save(car);
-        carRepository.save(car2);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         Post post2 = new Post(0, "testDescription", LocalDateTime.of(2021, 1, 1, 12, 50), BigDecimal.valueOf(1000000), user, car2, new ArrayList<>(), true);
         postRepository.save(post);
@@ -176,9 +152,7 @@ class HibernatePostRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
-        carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.now().minus(1, ChronoUnit.HOURS), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         postRepository.save(post);
         assertThat(postRepository.changeStatus(false, post.getId())).isTrue();

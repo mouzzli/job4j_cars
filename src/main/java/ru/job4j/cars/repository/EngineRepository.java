@@ -9,8 +9,9 @@ public interface EngineRepository {
 
     Optional<Engine> findById(int id);
 
-    boolean update(Engine engine);
+    void update(Engine engine);
 
     boolean delete(int id);
 
+    Optional<Engine> exist(Engine engine);
 }

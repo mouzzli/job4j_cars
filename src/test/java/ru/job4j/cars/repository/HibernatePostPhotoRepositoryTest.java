@@ -19,8 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class HibernatePostPhotoRepositoryTest {
     private static PostRepository postRepository;
-    private static EngineRepository engineRepository;
-    private static CarRepository carRepository;
     private static UserRepository userRepository;
     private static PostPhotoRepository postPhotoRepository;
     private static SessionFactory sf;
@@ -31,8 +29,6 @@ class HibernatePostPhotoRepositoryTest {
                 .configure().build();
         sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         CrudRepository crudRepository = new CrudRepository(sf);
-        engineRepository = new HibernateEngineRepository(crudRepository);
-        carRepository = new HibernateCarRepository(crudRepository);
         postRepository = new HibernatePostRepository(crudRepository);
         userRepository = new HibernateUserRepository(crudRepository);
         postPhotoRepository = new HibernatePostPhotoRepository(crudRepository);
@@ -57,9 +53,7 @@ class HibernatePostPhotoRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
-        carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         postRepository.save(post);
         PostPhoto postPhoto = new PostPhoto(0, "new Photo", new byte[]{1, 2}, post.getId());
@@ -72,9 +66,7 @@ class HibernatePostPhotoRepositoryTest {
         User user = new User(0, "login", "password");
         userRepository.save(user);
         Engine engine = new Engine(0, 180, 2.4, Fuel.PETROL);
-        engineRepository.save(engine);
         Car car = new Car(0, "Mitsubishi", "Outlander XL", 2010, engine, Transmission.CVT, WheelDrive.FULL_WD, Color.BLACK, Type.CROSSOVER, 97000);
-        carRepository.save(car);
         Post post = new Post(0, "testDescription", LocalDateTime.of(2022, 2, 1, 12, 50), BigDecimal.valueOf(1250000), user, car, new ArrayList<>(), true);
         postRepository.save(post);
         PostPhoto postPhoto = new PostPhoto(0, "new Photo", new byte[]{1, 2}, post.getId());

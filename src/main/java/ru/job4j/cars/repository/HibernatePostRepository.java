@@ -50,20 +50,13 @@ public class HibernatePostRepository implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        crudRepository.run(session -> session.persist(post));
+        crudRepository.run(session -> session.save(post));
         return post;
     }
 
     @Override
-    public boolean update(Post post) {
-        return crudRepository.tx(session -> {
-            Post savedPost = session.get(Post.class, post.getId());
-            if (savedPost != null) {
-                session.merge(post);
-                return true;
-            }
-            return false;
-        });
+    public void update(Post post) {
+        crudRepository.run(session -> session.merge(post));
     }
 
     @Override

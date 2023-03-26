@@ -14,6 +14,8 @@ public class HibernateEngineRepository implements EngineRepository {
             + "WHERE id = :id";
     private static final String DELETE_BY_ID = "DELETE FROM Engine "
             + "WHERE id = :id";
+    private static final String EXIST = "FROM Engine e "
+            + "WHERE  e.power = :power AND e.cubicCapacity = :capacity AND e.fuel = :fuel";
     private CrudRepository crudRepository;
 
     @Override
@@ -33,14 +35,15 @@ public class HibernateEngineRepository implements EngineRepository {
     }
 
     @Override
-    public boolean update(Engine engine) {
-        return crudRepository.tx(session -> {
-            Engine savedEngine = session.get(Engine.class, engine.getId());
-            if (savedEngine != null) {
-                session.merge(engine);
-                return true;
-            }
-            return false;
-        });
+    public void update(Engine engine) {
+        crudRepository.run(session -> session.merge(engine));
+    }
+
+    @Override
+    public Optional<Engine> exist(Engine engine) {
+        return crudRepository.optional(EXIST, Engine.class, Map.of("power", engine.getPower(),
+                "capacity", engine.getCubicCapacity(),
+                "fuel", engine.getFuel()));
+
     }
 }

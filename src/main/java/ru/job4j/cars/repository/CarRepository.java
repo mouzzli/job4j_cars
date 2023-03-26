@@ -9,7 +9,7 @@ public interface CarRepository {
 
     Optional<Car> findById(int id);
 
-    boolean update(Car car);
+    void update(Car car);
 
     boolean delete(int id);
 

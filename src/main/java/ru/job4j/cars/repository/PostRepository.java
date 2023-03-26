@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface PostRepository {
     Post save(Post post);
 
-    boolean update(Post post);
+    void update(Post post);
 
     boolean delete(int id);
 

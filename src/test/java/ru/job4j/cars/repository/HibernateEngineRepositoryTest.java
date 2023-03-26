@@ -64,9 +64,16 @@ class HibernateEngineRepositoryTest {
         Engine engine = new Engine(0, 180, 2.4, Fuel.DIESEL);
         engineRepository.save(engine);
         engine.setPower(125);
-        assertThat(engineRepository.update(engine)).isTrue();
+        engineRepository.update(engine);
         assertThat(engineRepository.findById(engine.getId()).get()).isEqualTo(engine);
-        engine.setId(0);
-        assertThat(engineRepository.update(engine)).isFalse();
+    }
+
+    @Test
+    public void whenExist() {
+        Engine engine = new Engine(0, 180, 2.4, Fuel.DIESEL);
+        Engine engine2 = new Engine(0, 100, 2.3, Fuel.DIESEL);
+        engineRepository.save(engine);
+        assertThat(engineRepository.exist(engine).get()).isEqualTo(engine);
+        assertThat(engineRepository.exist(engine2)).isEmpty();
     }
 }
